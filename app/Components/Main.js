@@ -1,10 +1,10 @@
 // include React 
 var React = require('react');
 
-// include all of the sub-components
-var Form = require('./Children/Search');
+// include sub-components
+var Search = require('./Children/Search');
 var Results = require('./Children/Results');
-var History = require('./Children/Saved');
+var Saved = require('./Children/Saved');
 
 // helper function
 var helpers = require('./utils/helpers.js');
@@ -12,19 +12,19 @@ var helpers = require('./utils/helpers.js');
 // main component
 var Main = React.createClass({
 
-	// set a generic state associated with the number of clicks
+	// set an initial state
 	getInitialState: function(){
 		return {
 			searchTerm: "",
-			results: "",
+			results: [],
 			saved: []
 		}
 	},	
 
 	// function allows children to update parent
-	setTerm: function(term){
+	setTerm: function(term, startYr, endYr){
 		this.setState({
-			searchTerm: term
+			searchTerm: [term, startYr, endYr]
 		})
 	},
 
@@ -39,11 +39,11 @@ var Main = React.createClass({
 				.then(function(data){
 					if (data != this.state.results)
 					{
-						console.log("Article Title", data);
+						console.log("Article Title ", data);
 
 						this.setState({
 							results: data
-						})
+						});
 
 						// after results received, post the results to saved 
 						helpers.postSaved(this.state.searchTerm)
@@ -53,7 +53,7 @@ var Main = React.createClass({
 								// then get updated saved articles
 								helpers.getSaved()
 									.then(function(response){
-										console.log("Saved Articles", response.data);
+										console.log("Saved Articles ", response.data);
 										if (response != this.state.saved){
 											console.log ("Saved Articles", response.data);
 
@@ -65,7 +65,7 @@ var Main = React.createClass({
 							}.bind(this)
 						)
 					}
-				}.bind(this))
+				}.bind(this));
 				
 			}
 	},

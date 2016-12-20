@@ -1,7 +1,7 @@
-// Include React 
+// include React
 var React = require('react');
 
-// This is the results component
+// create Results component
 var Results = React.createClass({
 
 	// Here we render the function
@@ -10,16 +10,13 @@ var Results = React.createClass({
 
 		return(
 
-			<div className="panel panel-default">
-				<div className="panel-heading">
-					<h3 className="panel-title text-center">Results</h3>
-				</div>
-				<div className="panel-body text-center">
+			<div className="row">
+				<h2>Results</h2>
+			</div>
 
-						<h1>Results</h1>
-						<p>{this.props.results}</p>
-
-				</div>
+			<div className="row">
+				<br></br>
+				<p>{this.props.results}</p>
 			</div>
 
 		)

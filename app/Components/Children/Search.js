@@ -1,67 +1,78 @@
-// Include React 
+// include React 
 var React = require('react');
 
-// This is the form component. 
-var Form = React.createClass({
+// search form component
+var Search = React.createClass({
 
-	// Here we set a generic state associated with the text being searched for
+	// set an initial generic state
 	// React created
 	getInitialState: function(){
 		return {
-			term: ""
+			searchTerm: "",
+			startYr: "",
+			endYr: ""
 		}
 	},
 
-	// This function will respond to the user input 
-	// Custom (developer created)
+	// this function will respond to the user input 
 	handleChange: function(event){
-
-    	// Here we create syntax to capture any change in text to the query terms (pre-search).
-    	// See this Stack Overflow answer for more details: 
-    	// http://stackoverflow.com/questions/21029999/react-js-identifying-different-inputs-with-one-onchange-handler
-    	var newState = {};
-    	newState[event.target.id] = event.target.value;
-    	this.setState(newState);
+ 		this.setState({ 
+ 			topic: event.target.value 
+ 		});
 
 	},
 
-	// When a user submits... 
-	// Custom (developer created)
+	// click to submit function
 	handleClick: function(){
-
 		console.log("CLICK");
-		console.log(this.state.term);
-		
-		// Set the parent to have the search term
-		this.props.setTerm(this.state.term);
+		// set parent to have the search term
+ 		this.props.setSearch(
+ 			this.state.term,
+ 			this.state.startYr, 
+ 			this.state.endYr
+ 		);
 
 	},
 
-	// Here we render the function
 	render: function(){
 
 		return(
 
 			<div className="panel panel-default">
-				<div className="panel-heading">
-					<h3 className="panel-title text-center">Query</h3>
+				
+				<div className="row">
+					<h2>Search</h2>
 				</div>
-				<div className="panel-body text-center">
+				
+				<div className="row">
 
-						<form>
-							<div className="form-group">
-								<h4 className=""><strong>Location</strong></h4>
+				<form>
+					<div className="row">
+    					<div className="six columns">
+      
+      					<label for="searchTerm">Search Terms (required)</label>
+      					<input className="u-full-width" placeholder="required" id="searchTerm" type="text"></input>
+    					</div>
 
-								{/*Note how each of the form elements has an id that matches the state. This is not necessary but it is convenient.
-									Also note how each has an onChange event associated with our handleChange event. 
-								*/}
-								<input type="text" className="form-control text-center" id="term" onChange= {this.handleChange} required/>
-								<br />
-								<button type="button" className="btn btn-primary" onClick={this.handleClick}>Submit</button>
-							</div>
+    					<div className="six columns">
+      						<div className="row">
+      							<label for="startYr">Start Year</label>
+      							<input className="u-full-width" placeholder="Enter the 4-digit starting year for your search" id="startYr" type="text"></input>
+      						</div>
 
-						</form>
+							<div className="row">
+							    <label for="startYr">Start Year</label>
+      							<input className="u-full-width" placeholder="Enter the 4-digit starting year for your search" id="startYr" type="text"></input>
+      						</div>
+      					</div>
+
+					</div>
+
+  					<input className="button-primary" value="Submit" type="submit"></input>
+
+				</form>
 				</div>
+			
 			</div>
 
 
@@ -70,5 +81,5 @@ var Form = React.createClass({
 	}
 });
 
-// Export the component back for use in other files
-module.exports = Form;
+// Export the Search component back for use in other files
+module.exports = Search;
