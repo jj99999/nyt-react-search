@@ -73,7 +73,8 @@ app.post('/api/saved', function(req, res){
 });
 
 app.delete('/api/saved', function(req, res){
-  Saved.findByIdAndRemove({ _id: req.params.id },
+  Saved.findByIdAndRemove(
+    { _id: req.params.id }, 
     function(err, doc){
     if(err){
       console.log(err);
